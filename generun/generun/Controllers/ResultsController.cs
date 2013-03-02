@@ -42,7 +42,5 @@ namespace generun.Controllers
             }
             return response;
         }
-
-        public HttpResponseMessage 
     }
 }
