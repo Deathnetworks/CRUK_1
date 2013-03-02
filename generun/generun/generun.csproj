@@ -1,0 +1,423 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E84523C7-DB46-424B-B85C-94FF3E4291AD}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>generun</RootNamespace>
+    <AssemblyName>generun</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\FaceBookController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LevelController.cs" />
+    <Compile Include="Controllers\ResultsController.cs" />
+    <Compile Include="Engine\Engine.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\APIModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="CRUK_data\S1\S1Chrom1.png" />
+    <Content Include="CRUK_data\S1\S1Chrom17.png" />
+    <Content Include="CRUK_data\S1\S1Chrom6.png" />
+    <Content Include="CRUK_data\S2\S2Chrom1.png" />
+    <Content Include="CRUK_data\S2\S2Chrom16.png" />
+    <Content Include="CRUK_data\S3\S3Chrom1.png" />
+    <Content Include="CRUK_data\S3\S3Chrom11.png" />
+    <Content Include="CRUK_data\S3\S3Chrom20.png" />
+    <Content Include="CRUK_data\S3\S3Chrom4.png" />
+    <Content Include="CRUK_data\S3_BAF.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom1.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom10.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom11.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom12.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom13.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom14.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom15.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom16.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom17.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom18.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom19.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom2.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom20.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom21.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom22.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom3.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom4.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom5.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom6.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom7.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom8.txt" />
+    <Content Include="CRUK_data\S3_BAF_Chrom9.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom1.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom10.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom11.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom12.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom13.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom14.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom15.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom16.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom17.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom18.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom19.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom2.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom20.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom21.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom22.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom3.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom4.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom5.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom6.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom7.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom8.txt" />
+    <Content Include="CRUK_data\S3_Seg_Chrom9.txt" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="CRUK_data\.DS_Store" />
+    <Content Include="CRUK_data\.git\config" />
+    <Content Include="CRUK_data\.git\description" />
+    <Content Include="CRUK_data\.git\HEAD" />
+    <Content Include="CRUK_data\.git\hooks\applypatch-msg.sample" />
+    <Content Include="CRUK_data\.git\hooks\commit-msg.sample" />
+    <Content Include="CRUK_data\.git\hooks\post-commit.sample" />
+    <Content Include="CRUK_data\.git\hooks\post-receive.sample" />
+    <Content Include="CRUK_data\.git\hooks\post-update.sample" />
+    <Content Include="CRUK_data\.git\hooks\pre-applypatch.sample" />
+    <Content Include="CRUK_data\.git\hooks\pre-commit.sample" />
+    <Content Include="CRUK_data\.git\hooks\pre-rebase.sample" />
+    <Content Include="CRUK_data\.git\hooks\prepare-commit-msg.sample" />
+    <Content Include="CRUK_data\.git\hooks\update.sample" />
+    <Content Include="CRUK_data\.git\index" />
+    <Content Include="CRUK_data\.git\info\exclude" />
+    <Content Include="CRUK_data\.git\logs\HEAD" />
+    <Content Include="CRUK_data\.git\logs\refs\heads\master" />
+    <Content Include="CRUK_data\.git\logs\refs\remotes\origin\HEAD" />
+    <Content Include="CRUK_data\.git\objects\06\6bb7ebc6295f9d1b88f151fe7ec4f263724e63" />
+    <Content Include="CRUK_data\.git\objects\0a\64d5ad466ffc9dc877e7b6bdb3751f2eed77db" />
+    <Content Include="CRUK_data\.git\objects\0a\d5a87a593cca0da6af7a37f461e9415b216db7" />
+    <Content Include="CRUK_data\.git\objects\10\7a4a1a4ee4bdcd22c014014ffa61cf8dbc92e6" />
+    <Content Include="CRUK_data\.git\objects\12\02636b1994a6cb328ce94526541117cbf0cec0" />
+    <Content Include="CRUK_data\.git\objects\15\de4dd11c991e2d56078c8c4ff803b9a36bc5a5" />
+    <Content Include="CRUK_data\.git\objects\1d\a201cb4a6e250484152d95d80e02e1b1f855c7" />
+    <Content Include="CRUK_data\.git\objects\23\d3d8c1ab96bfcca653050d0d821ad1790c342c" />
+    <Content Include="CRUK_data\.git\objects\25\16c3f1c7e009f4389fd70eaba8d61835fb2b7e" />
+    <Content Include="CRUK_data\.git\objects\2f\059fee01ed464e1ff7195d7df1cecc38c7d48d" />
+    <Content Include="CRUK_data\.git\objects\2f\12e21a223c89d5d0b8ee89f261a31d43ede348" />
+    <Content Include="CRUK_data\.git\objects\32\1330eee1a6e748c3ef415e66c49037d09558be" />
+    <Content Include="CRUK_data\.git\objects\39\c19647e213ae82bbf5d94b7d90442d90618aef" />
+    <Content Include="CRUK_data\.git\objects\3b\fa92f16e61ee32dbd1d52bb3b33a2bd956cfb5" />
+    <Content Include="CRUK_data\.git\objects\3c\249b2b0f8678d675d48b4bab7ab57c05747fbb" />
+    <Content Include="CRUK_data\.git\objects\3d\7244cfb5be0ff4fd565022ec57eece07d841b3" />
+    <Content Include="CRUK_data\.git\objects\40\c1ea65fb8f207387c7c029ca9d96afa60218d4" />
+    <Content Include="CRUK_data\.git\objects\44\2268bb9e83c13f7860796b4d6e6d2ce3ac5af2" />
+    <Content Include="CRUK_data\.git\objects\50\08ddfcf53c02e82d7eee2e57c38e5672ef89f6" />
+    <Content Include="CRUK_data\.git\objects\56\8e2e253fec3f4cfe84ed05e60a09fab0df25a1" />
+    <Content Include="CRUK_data\.git\objects\58\056e2fd781aec419003fd3101469b4bd0f66f2" />
+    <Content Include="CRUK_data\.git\objects\60\a350cee39218f0be1d6c0c1b7ea4c19c8d2aeb" />
+    <Content Include="CRUK_data\.git\objects\66\2b8b4bc7db2bcf608792e3125ffa99264aa885" />
+    <Content Include="CRUK_data\.git\objects\6b\c8d8779638f67d78addbb0fd8af5d0e90f43d4" />
+    <Content Include="CRUK_data\.git\objects\75\88b43f4bb045a01a2b66d4876be187bd1e31c9" />
+    <Content Include="CRUK_data\.git\objects\76\88cc34a41dba7c932f80c466232cd488392bcc" />
+    <Content Include="CRUK_data\.git\objects\7b\2a84a8bd0195ba65dab0715f539f7097013f43" />
+    <Content Include="CRUK_data\.git\objects\81\f3bae9d9f873acd32dd9c7b9da5149086acf93" />
+    <Content Include="CRUK_data\.git\objects\83\25acbe04deb47bbd66cd9305ffd7a20b917de2" />
+    <Content Include="CRUK_data\.git\objects\84\072356e759e5584a41ee52847dac55acf6f314" />
+    <Content Include="CRUK_data\.git\objects\84\2697eb03d39bd8e6e17d73b86fbba0498c5489" />
+    <Content Include="CRUK_data\.git\objects\85\48baacf8e203ca66bc3ed47c22c3006a5b0bdf" />
+    <Content Include="CRUK_data\.git\objects\85\c18542da3a0239b1db7096427b67c6314affb5" />
+    <Content Include="CRUK_data\.git\objects\88\f553d18f7ca59d0fefbd3c218261f0bc936962" />
+    <Content Include="CRUK_data\.git\objects\98\44a6dfeb35cb72e0dbe0cfa7a927654c6eaa03" />
+    <Content Include="CRUK_data\.git\objects\9b\81ce0a16d3675374bee8e0030054025f8d5ff3" />
+    <Content Include="CRUK_data\.git\objects\a0\1273463ce0d4757a0a7acdd2a205da19896578" />
+    <Content Include="CRUK_data\.git\objects\a0\c533c942d1ee662e8fd685684b04449ced6e1e" />
+    <Content Include="CRUK_data\.git\objects\a2\7e7b2dd07c4baea5632c6ad2b7fd213758909a" />
+    <Content Include="CRUK_data\.git\objects\a6\51584923c9f39af2149110191f8b419a4cc091" />
+    <Content Include="CRUK_data\.git\objects\ac\07a42db50d8a2d1c69fc99e9a67a23addfc212" />
+    <Content Include="CRUK_data\.git\objects\b0\58f8cb27979d6a4992a236ee1c52225afa4cad" />
+    <Content Include="CRUK_data\.git\objects\b2\bd7a51f78be12fe658de0a5abf922cc9f8c881" />
+    <Content Include="CRUK_data\.git\objects\b3\d1b903d487cc7ac40c302fd0f01d962b882e13" />
+    <Content Include="CRUK_data\.git\objects\b4\32f9c8ff17d356479820665a72a4f201134f1b" />
+    <Content Include="CRUK_data\.git\objects\b6\1ad2f90101a01e45c0a6d94c3fcf5dac11cfd3" />
+    <Content Include="CRUK_data\.git\objects\b8\d3ca5783981b39ea69ed2f460f6f48ba57a659" />
+    <Content Include="CRUK_data\.git\objects\bd\2581d7546767a9f34d7d6d402d2aa6a7641fbe" />
+    <Content Include="CRUK_data\.git\objects\be\b8a1861b8498cc08ac0ce5b62a81b44dddc9e7" />
+    <Content Include="CRUK_data\.git\objects\cd\2e257828d411b8f622c05d1d4afa72545ff9c4" />
+    <Content Include="CRUK_data\.git\objects\d0\89e403e123ea0a175ecc8c6d449ccb09f9815f" />
+    <Content Include="CRUK_data\.git\objects\da\675b1c7c0ed6aa37b5b356f6293fb240b421d1" />
+    <Content Include="CRUK_data\.git\objects\dc\febe147ed8c330a7733dfd0e63d900970fb17a" />
+    <Content Include="CRUK_data\.git\objects\e0\4cc0aa3f67d4d351580a42e55350fa4079b624" />
+    <Content Include="CRUK_data\.git\objects\ea\6a9df1c08320daf0975f202b05243a49639be4" />
+    <Content Include="CRUK_data\.git\objects\f4\d5ab6ca4071ef83a60b3a4c3082b23be0dae84" />
+    <Content Include="CRUK_data\.git\objects\f4\f4d65c6b7147a495b7b11e7c3a7a9029972757" />
+    <Content Include="CRUK_data\.git\objects\f6\39812a507ae8de0698e10f8efc0d73ad0a493c" />
+    <Content Include="CRUK_data\.git\objects\f8\b0698d21540eaf261a7d4732bc68921241d5a1" />
+    <Content Include="CRUK_data\.git\objects\fc\4fa6cedb4cfb419b8924ded6c435bc783adda6" />
+    <Content Include="CRUK_data\.git\objects\fc\df9da786ab92c1881fee039d0fee53273c7ecb" />
+    <Content Include="CRUK_data\.git\objects\fd\6e4fbab4b77fda2c11940d1e28ec3c6915838b" />
+    <Content Include="CRUK_data\.git\packed-refs" />
+    <Content Include="CRUK_data\.git\refs\heads\master" />
+    <Content Include="CRUK_data\.git\refs\remotes\origin\HEAD" />
+    <Content Include="CRUK_data\Feb2013.pdf" />
+    <Content Include="CRUK_data\OSCAR GENE PRESENTATION.pptx" />
+    <None Include="Properties\PublishProfiles\Deploy.pubxml" />
+    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.7.1.js" />
+    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.js" />
+    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="CRUK_data\.git\objects\info\" />
+    <Folder Include="CRUK_data\.git\objects\pack\" />
+    <Folder Include="CRUK_data\.git\refs\tags\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52665/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
