@@ -6,12 +6,13 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Data.Linq;
+using System.Net.Http;
 
 namespace generun.EngineLoader
 {
     public static class DB
     {
-        public static Dictionary<string, dynamic> LevelDB = new Dictionary<string, dynamic>();
+        public static Dictionary<string, Dictionary<string, LevelResult>> LevelDB = new Dictionary<string, Dictionary<string, LevelResult>>();
 
         public static void ClearResults()
         {
@@ -37,6 +38,8 @@ namespace generun.EngineLoader
 
         }
 
+        
+
         public static LevelResult GetBestLevelResult(string LevelName)
         {
             var test = from x in LevelDB
@@ -49,72 +52,88 @@ namespace generun.EngineLoader
             return testing;
         }
     }
-        public class Engine
+
+    public static class Engine
+    {
+        public static HttpResponseMessage HTTPResponseFromBitmap(Bitmap canvas, HttpRequestMessage Request)
         {
-            public byte[] GetLevel(string LevelName, int Height, int Width)
-            {
-                string newString = string.Empty;
-                byte[] bits = new byte[(int)(Width * (double)Height / 8 + 0.5)];
+            var ms = new MemoryStream();
+            canvas.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
 
-                string filePath = HttpContext.Current.Server.MapPath(string.Format("~/CRUK_data/{0}.txt", LevelName)),
-                    line = string.Empty;
+            HttpResponseMessage r = Request.CreateResponse();
+            r.Content = new ByteArrayContent(ms.ToArray());
+            ms.Close();
+            ms.Dispose();
+            r.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
+            return r;
+        }
 
-                int minX = int.MaxValue,
-                           maxX = int.MinValue;
+        public static byte[] GetLevel(string LevelName, int Height, int Width)
+        {
+            string newString = string.Empty;
+            byte[] bits = new byte[(int)(Width * (double)Height / 8 + 0.5)];
 
-                if (File.Exists(filePath))
-                    using (StreamReader reader = new StreamReader(filePath))
+            string filePath = HttpContext.Current.Server.MapPath(string.Format("~/CRUK_data/{0}.txt", LevelName)),
+                line = string.Empty;
+
+            int minX = int.MaxValue,
+                       maxX = int.MinValue;
+
+            if (File.Exists(filePath))
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    line = reader.ReadLine(); //skip firstline
+
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        line = reader.ReadLine(); //skip firstline
 
-                        while ((line = reader.ReadLine()) != null)
-                        {
-
-                            string[] data = line.Split('\t');
+                        string[] data = line.Split('\t');
 
 
-                            int chromosome = Convert.ToInt32(data[0]),
-                            x = Convert.ToInt32(data[1]);
+                        int chromosome = Convert.ToInt32(data[0]),
+                        x = Convert.ToInt32(data[1]);
 
-                            double y = Convert.ToDouble(data[2]);
+                        double y = Convert.ToDouble(data[2]);
 
-                            if (y >= 0.5)
-                                continue;
+                        if (y >= 0.5)
+                            continue;
 
-                            minX = Math.Min(minX, x);
-                            maxX = Math.Max(maxX, x);
+                        minX = Math.Min(minX, x);
+                        maxX = Math.Max(maxX, x);
 
-                        }
-
-                        reader.BaseStream.Position = 0;
-                        reader.DiscardBufferedData();
-
-                        line = reader.ReadLine(); //skip firstline
-
-                        while ((line = reader.ReadLine()) != null)
-                        {
-                            string[] data = line.Split('\t');
-
-
-                            int chromosome = Convert.ToInt32(data[0]),
-                            x = Convert.ToInt32(data[1]);
-
-                            double y = Convert.ToDouble(data[2]);
-
-                            if (y >= 0.5)
-                                continue;
-
-                            int xBitmap = (int)((double)x / (maxX - minX) * Width),
-                            yBitmap = (int)(Height * 2 * y),
-                            index = (xBitmap + yBitmap * Width) / 8;
-
-                            var bit = (xBitmap + yBitmap * Width) % 8;
-                            bits[index] |= Convert.ToByte(1 << bit);
-                        }
                     }
 
-                //Process Data
-                return bits; //return data
-            }
+                    reader.BaseStream.Position = 0;
+                    reader.DiscardBufferedData();
+
+                    line = reader.ReadLine(); //skip firstline
+
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] data = line.Split('\t');
+
+
+                        int chromosome = Convert.ToInt32(data[0]),
+                        x = Convert.ToInt32(data[1]);
+
+                        double y = Convert.ToDouble(data[2]);
+
+                        if (y >= 0.5)
+                            continue;
+
+                        int xBitmap = (int)((double)x / (maxX - minX) * Width),
+                        yBitmap = (int)(Height * 2 * y),
+                        index = (xBitmap + yBitmap * Width) / 8;
+
+                        var bit = (xBitmap + yBitmap * Width) % 8;
+                        bits[index] |= Convert.ToByte(1 << bit);
+                    }
+                }
+
+            //Process Data
+            return bits; //return data
         }
+
+        
     }
+}

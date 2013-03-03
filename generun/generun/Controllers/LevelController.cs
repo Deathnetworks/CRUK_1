@@ -19,10 +19,10 @@ namespace generun.Controllers
             IEnumerable<string> files = Directory.EnumerateFiles(HttpContext.Current.Server.MapPath("~/CRUK_data"));
 
             IEnumerable<string> testList = (from x in files
-                         where x.Contains("BAF") & x.Contains("Chrom")
-                         select Path.GetFileNameWithoutExtension(x));
+                                            where x.Contains("BAF") & x.Contains("Chrom")
+                                            select Path.GetFileNameWithoutExtension(x));
 
-            return testList; // return all level names
+            return new List<string>() { testList.First(x => x.EndsWith("Chrom2")), testList.First(x => x.EndsWith("Chrom8")), testList.First(x => x.EndsWith("Chrom4")), testList.First(x => x.EndsWith("Chrom12")) };
         }
 
         // GET api/level/5
@@ -30,8 +30,8 @@ namespace generun.Controllers
         {
             byte[] returnVal;
 
-            returnVal = new Engine().GetLevel(LevelName,Height,Width);
-            
+            returnVal = Engine.GetLevel(LevelName, Height, Width);
+
             return returnVal;
         }
     }
