@@ -82,14 +82,12 @@ namespace generun.Controllers
             byte[] bits = Engine.GetLevel(lr.level, 1000, 325);
             Bitmap bmp = new Bitmap(1000, 650);
 
-            int x = 0;
-            int y = 0;
-            for (int i=0; i<bits.Length; ++i)
-            {
-                byte value = bits[i];
-                for (int j=0; j<8; ++j)
+            for (int x = 0; x < 1000; x++)
+                for (int y = 0; y < 325; ++y)
                 {
-                    bool isOn = ((value & (1 << j)) > 0);
+                    int byteIndex = (x + y * 1000) / 8;
+                    int bitIndex = (x + y * 1000) % 8;
+                    bool isOn = (bits[byteIndex] & (1 << bitIndex)) > 0;
                     bmp.SetPixel(x, y, isOn ? Color.Black : Color.White);
                     bmp.SetPixel(x, 649 - y, isOn ? Color.Black : Color.White);
                     if (classification[x] == y)
@@ -98,14 +96,6 @@ namespace generun.Controllers
                         bmp.SetPixel(x, 649 - y, Color.Red);
                     }
                 }
-                ++x;
-                if (x>=1000)
-                {
-                    x = 0;
-                    y++;
-                }
-            }
-
             return Engine.HTTPResponseFromBitmap(bmp, Request);
         }
 
