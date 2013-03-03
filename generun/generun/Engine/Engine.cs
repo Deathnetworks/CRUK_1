@@ -28,93 +28,93 @@ namespace generun.EngineLoader
         {
             if (LevelDB.ContainsKey(username))
             {
-                Dictionary<string,LevelResult> userDB = LevelDB[username];
+                Dictionary<string, LevelResult> userDB = LevelDB[username];
                 if (userDB.ContainsKey(levelName))
                 {
                     userDB.Remove(levelName);
                 }
-        }
+            }
 
-    }
+        }
 
         public static LevelResult GetBestLevelResult(string LevelName)
         {
             var test = from x in LevelDB
                        where x.Value.ContainsKey(LevelName)
-                select (x.Value as Dictionary<string,LevelResult>);
+                       select (x.Value as Dictionary<string, LevelResult>);
 
             var testing = (from x in test
-                              select x[LevelName]).OrderByDescending(x=>(x.score)).First();
+                           select x[LevelName]).OrderByDescending(x => (x.score)).First();
 
             return testing;
         }
-    
-    public class Engine
-    {
-        public byte[] GetLevel(string LevelName, int Height, int Width)
+    }
+        public class Engine
         {
-            string newString = string.Empty;
-            byte[] bits = new byte[(int)(Width * (double)Height / 8 + 0.5)];
+            public byte[] GetLevel(string LevelName, int Height, int Width)
+            {
+                string newString = string.Empty;
+                byte[] bits = new byte[(int)(Width * (double)Height / 8 + 0.5)];
 
-            string filePath = HttpContext.Current.Server.MapPath(string.Format("~/CRUK_data/{0}.txt", LevelName)),
-                line = string.Empty;
+                string filePath = HttpContext.Current.Server.MapPath(string.Format("~/CRUK_data/{0}.txt", LevelName)),
+                    line = string.Empty;
 
-            int minX = int.MaxValue,
-                       maxX = int.MinValue;
+                int minX = int.MaxValue,
+                           maxX = int.MinValue;
 
-            if (File.Exists(filePath))
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    line = reader.ReadLine(); //skip firstline
-
-                    while ((line = reader.ReadLine()) != null)
+                if (File.Exists(filePath))
+                    using (StreamReader reader = new StreamReader(filePath))
                     {
+                        line = reader.ReadLine(); //skip firstline
 
-                        string[] data = line.Split('\t');
+                        while ((line = reader.ReadLine()) != null)
+                        {
+
+                            string[] data = line.Split('\t');
 
 
-                        int chromosome = Convert.ToInt32(data[0]),
-                        x = Convert.ToInt32(data[1]);
+                            int chromosome = Convert.ToInt32(data[0]),
+                            x = Convert.ToInt32(data[1]);
 
-                        double y = Convert.ToDouble(data[2]);
+                            double y = Convert.ToDouble(data[2]);
 
-                        if (y >= 0.5)
-                            continue;
+                            if (y >= 0.5)
+                                continue;
 
-                        minX = Math.Min(minX, x);
-                        maxX = Math.Max(maxX, x);
+                            minX = Math.Min(minX, x);
+                            maxX = Math.Max(maxX, x);
 
+                        }
+
+                        reader.BaseStream.Position = 0;
+                        reader.DiscardBufferedData();
+
+                        line = reader.ReadLine(); //skip firstline
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] data = line.Split('\t');
+
+
+                            int chromosome = Convert.ToInt32(data[0]),
+                            x = Convert.ToInt32(data[1]);
+
+                            double y = Convert.ToDouble(data[2]);
+
+                            if (y >= 0.5)
+                                continue;
+
+                            int xBitmap = (int)((double)x / (maxX - minX) * Width),
+                            yBitmap = (int)(Height * 2 * y),
+                            index = (xBitmap + yBitmap * Width) / 8;
+
+                            var bit = (xBitmap + yBitmap * Width) % 8;
+                            bits[index] |= Convert.ToByte(1 << bit);
+                        }
                     }
 
-                    reader.BaseStream.Position = 0;
-                    reader.DiscardBufferedData();
-
-                    line = reader.ReadLine(); //skip firstline
-
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        string[] data = line.Split('\t');
-
-
-                        int chromosome = Convert.ToInt32(data[0]),
-                        x = Convert.ToInt32(data[1]);
-
-                        double y = Convert.ToDouble(data[2]);
-
-                        if (y >= 0.5)
-                            continue;
-
-                        int xBitmap = (int)((double)x / (maxX - minX) * Width),
-                        yBitmap = (int)(Height * 2 * y),
-                        index = (xBitmap + yBitmap * Width) / 8;
-
-                        var bit = (xBitmap + yBitmap * Width) % 8;
-                        bits[index] |= Convert.ToByte(1 << bit);
-                    }
-                }
-
-            //Process Data
-            return bits; //return data
+                //Process Data
+                return bits; //return data
+            }
         }
     }
-}
