@@ -1,72 +1,251 @@
 using UnityEngine;
 using System.Collections;
 
+public enum GameState{
+	Preinit,
+	StartAnim,
+	ChoosePath,
+	Play,
+	EndAnim,
+	End,
+};
+	
 public class ShipControl : MonoBehaviour {
-
+	public bool toggleMe;
+	public Vector3 cameraInitialLocation;
+	public Transform cameraTransform;
 	public float speed = 5.0f;
 	public float xPosition = 0.0f;
 	public static float totalDistance = 0;
 	public static float shipSpeed = 0.10f;
+	public float swipeSpeed = 5.0f;
+	//public static float shipSpeed = 0.00f;
 	public float lerpSpeed = 0.2f;
 	public float bounds =10.0f;
-	private bool rightB;
-	private bool leftB;
+	public float score = 0.0f;
+	private bool isTouched;
+	private Vector2 touchPos, touchLast, touchMoved;
+	private float touchMag = 0.0f;
+	private float maxRot = Mathf.PI/2.0f;
+	private bool newMode;
+	private bool isStart;
+	private Vector3 cameraInitialPos;
+	private bool isCamMove;
+	public GameState gameState;
+	private SceneManager manager;
+	private int rotDir;
 	// Use this for initialization
 	void Start () {
-		rightB = false;
-		leftB = false;
+		gameState = GameState.StartAnim;
+		cameraTransform.camera.fieldOfView = 90;
+		cameraInitialPos = cameraTransform.position;
+		manager = transform.parent.gameObject.GetComponent<SceneManager>();
+		toggleMe = false;
 		Debug.Log("start");
 	}
-	void OnCollisionEnter(Collision other)
+
+	public int x = 0;
+	void FixedUpdate()
 	{
-		Debug.Log("test");
+		if(x%10==0)
+		{
+
+		}
+		x++;
+	}
+	
+	void processMovement(float speed)
+	{
+		//Debug.Log(speed);
+	}
+	void rotZ()
+	{
+		//Vector3 rotV = ;
 		
-	}
-	void OnCollisionStay(Collision other)
-	{
-		Debug.Log("test");
-	}
-	void OnCollisionExit(Collision other)
-	{
-		Debug.Log("exit");
-	}
-	void OnTriggerEnter(Collider other)
-	{
-		Debug.Log("enter");
-	}
-	void OnTriggerStay(Collider other)
-	{
-		Debug.Log("stay");
-	}
-	void OnTriggerExit( Collider other)
-	{
-		Debug.Log ("leave");
+		float rotV = 0;
+		Vector3 zAxis = new Vector3(0.0f, 0.0f, 1.0f);
+		
+		if(touchMag>0)
+		{
+			rotV = Mathf.Lerp(transform.rotation.z,maxRot,0.1f);
+		}
+		else if (touchMag==0)
+		{
+			rotV = Mathf.Lerp(transform.rotation.z,0,0.2f);
+		}
+		else
+		{
+			rotV = Mathf.Lerp(transform.rotation.z,-maxRot,0.1f);
+		}
+		transform.rotation = Quaternion.identity;
+		transform.RotateAround(Vector3.up,Mathf.PI);
+		transform.RotateAround(Vector3.forward,-rotV);
 	}
 	// Update is called once per frame
+	void Init()
+	{
+		transform.position = new Vector3(0.0f,0.0f,-0.0f);
+		cameraTransform.position = cameraInitialPos;
+		gameState = GameState.StartAnim;
+		cameraTransform.camera.fieldOfView = 90;
+		cameraTransform.position = cameraInitialPos;
+		manager = transform.parent.gameObject.GetComponent<SceneManager>();
+		Debug.Log("start");
+		count = 0;
+	}
+	void ChoosePath()
+	{
+		//if(Input.touchCount == 1)
+			{
+				//Touch touch = Input.GetTouch(0);
+				float posx = Mathf.Abs(Input.mousePosition.x/Screen.width - 0.5f);
+				//if(touch.phase == TouchPhase.Began)
+					
+				transform.position = new Vector3(32.5f*posx, transform.position.y,0 );
+				gameState = GameState.Play;
+			}
+	}
+	int count;
+	void StartAnim()
+	{
+		//if(Input.touchCount>0)
+		//if( ( Input.GetTouch(0).phase ==TouchPhase.Ended))//tapCount == 0 ))
+		{
+			count++;
+			if( count >= 3 )
+			{
+				gameState = GameState.ChoosePath;
+				
+			}
+		}
+		
+	}
+	void PlayFoo()
+	{
+		elapsedTime = 0;
+			float z0 = Mathf.Lerp(cameraTransform.position.z,transform.position.z -20.0f, 0.1f);
+			cameraTransform.position = new Vector3(cameraTransform.position.x, cameraTransform.position.y, z0);
+			cameraTransform.camera.fieldOfView = Mathf.Lerp(cameraTransform.camera.fieldOfView, 60.0f, 0.1f);
+			var sm = GameObject.Find("ScoreManager").GetComponent<ScoreManager>() as ScoreManager;
+			var o = GameObject.Find("Energy 1").GetComponent<ParticleField>() as ParticleField;
+			sm.addScore(o.collectParticles(transform.position.x,transform.position.z));
+			totalDistance += (speed * Time.deltaTime);
+			touchMag = 0;			
+			
+			//if(Input.touchCount == 1)
+			{
+				//Touch touch = Input.GetTouch(0);
+				float posz = Time.deltaTime * speed + transform.position.z;
+				float posx = Mathf.Abs(Input.mousePosition.x/Screen.width - 0.5f);
+				//if(touch.phase == TouchPhase.Began)	{				
+				transform.position = new Vector3(32.5f*posx, transform.position.y,posz );
+				//}	
+				
+				particleSystem.Play();
+				GameObject.Find("ShipMirror").particleSystem.Play();
+			}
+				
+			float xpos = transform.position.x;
+			Vector3 posVec = transform.position;
+			touchMag += Input.GetAxis("Horizontal")*Time.deltaTime;
+			xpos += touchMag*swipeSpeed;
+			xpos=Mathf.Clamp(xpos,0,bounds);
+			posVec.x = xpos;
+			posVec.z += Time.deltaTime * speed;
+			transform.position = posVec;
+			//rotZ();
+		if(transform.position.z>=200.0f)
+		{
+			gameState = GameState.EndAnim;
+		}
+		}
+	float elapsedTime;
+	void EndAnim()
+	{
+		elapsedTime+=Time.deltaTime;
+		Debug.Log("Endanim");
+		transform.position = new Vector3(transform.position.x,transform.position.y,2.0f+transform.position.z) ;
+		cameraTransform.position = new Vector3(cameraTransform.position.x,cameraTransform.position.y-1.0f,cameraTransform.position.z) ;
+		if(elapsedTime>3.0f)
+			gameState = GameState.End;
+	}
+	void End()
+	{
+		Debug.Log("End");
+		var o = GameObject.Find("Energy 1").GetComponent<ParticleField>() as ParticleField;
+		var sm = GameObject.Find("ScoreManager").GetComponent<ScoreManager>() as ScoreManager;
+		int[] tx = new int[1000];
+		for(int x = 0;x<1000;x++)
+		{
+			tx[x] = o.samples.ContainsKey(x)?o.samples[x] : 0;
+		}
+		o.Start();
+		
+		manager.FinishedLevel(tx,sm.reportScore());
+		Init();
+	}
+	void Preinit()
+	{
+		if(toggleMe)
+		{
+			gameState = GameState.StartAnim;
+		}
+		
+	}
 	void Update () {
 		
-		totalDistance += (speed * Time.deltaTime);
-		 if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved) {
-			float touchPos = Input.GetTouch(0).position.x/Screen.width - 0.5f;
-            Vector2 touchDeltaPosition = Input.GetTouch(0).position;
-			//Debug.Log(touchPos);
-			Vector3 xVec = transform.position;
-			xVec.x = Mathf.Lerp(transform.position.x, bounds* touchPos,lerpSpeed);
-            transform.position = xVec;
-			
+		switch(gameState)
+		{
+		case GameState.Preinit:
+			Preinit();
+			break;
+		case GameState.StartAnim:
+			StartAnim();
+			break;
+		case GameState.ChoosePath:
+			ChoosePath();
+			break;
+		case GameState.Play:
+			PlayFoo();
+			break;
+		case GameState.EndAnim:
+			EndAnim();
+			break;
+		case GameState.End:
+			End ();
+			break;
 		}
-//		if(Input.GetAxis("Horizontal")!=0)
-//		{
-//			float touchPos = Input.GetTouch(0).position.x/Screen.width - 0.5f;
-//            float touchDeltaPosition = Input.GetAxis("Horizontal");
-//			Debug.Log(touchPos);
-//			Vector3 xVec = transform.position;
-//			xVec.x += touchDeltaPosition*Time.deltaTime;//Mathf.Lerp(transform.position.x, 10* touchPos,0.2f);
-//            transform.position = xVec;
-//		}
-
-		//Debug.Log(xPosition);
-	
+		if(Input.GetKeyDown(KeyCode.A))
+			gameState = GameState.End;
 	}
+	
 
 }
+
+
+				
+				//Touch touch = Input.GetTouch(0);
+	//			if(touch.phase == TouchPhase.Began)
+	//			{
+	//				touchMoved = Vector2.zero;
+	//				touchLast = Vector2.zero;
+	//				touchPos = touch.position;	
+	//				touchMag = 0.0f;
+	//			}
+	//			else if(touch.phase == TouchPhase.Moved)
+	//			{
+	//				touchMoved = touch.position - touchPos;
+	//				touchLast = touchPos;
+	//				touchPos = touch.position;
+	//				touchMag = touchMoved.x / Screen.width;
+	//			}
+	//			else if(touch.phase == TouchPhase.Stationary)
+	//			{
+	//				touchLast = touchPos;
+	//				touchPos = touch.position;
+	//				touchMag = 0.0f;
+	//			}
+	//			else if(touch.phase == TouchPhase.Ended||touch.phase == TouchPhase.Canceled)
+	//			{
+	//				touchMag = 0.0f;
+	//			}
